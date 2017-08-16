@@ -1,0 +1,98 @@
+<!doctype html>
+
+<html>
+	<head>
+		<!-- <link rel="stylesheet" href="/site.css">  -->
+		<title>RPN Calculator</title>
+		
+		<style>
+			button {
+				margin-bottom: 8px;
+				width: 60px;
+				height: 60px;
+				display: inline-block;
+				border-radius: 24px;
+				box-shadow: 0 2px 2px rgba(0,0,0,.4);
+				background-color: #FF00BF;
+				border: 0;
+				color: white;
+				font-size: 16px;
+				transition: box-shadow .5s,
+							background-color .5s,
+							color .5s
+			}
+			
+			button:hover {
+				box-shadow: 0 6px 6px rgba(0,0,0,.4);
+				color: #FF00BF;
+				background-color:white;
+			}
+		</style>
+		
+	</head>
+	
+	<body>
+		
+		<form method="post" action="/calculator/values">
+			<input autofocus type="number" step="any" name="enteredValue">		
+			<button>PUSH</button> 
+		</form>
+		
+		<form method="post" action="/calculator/operation/undo">
+			<button>UNDO</button>
+			{{undoSize}}
+		</form>		
+		
+		{{#canShowBinaryOperator}}
+		<form method="post" action="/calculator/operation/add">
+			<button>+</button> 			
+		</form>
+		
+		<form method="post" action="/calculator/operation/subtract">
+			<button>-</button> 
+		</form>
+		
+		<form method="post" action="/calculator/operation/multiply">
+			<button>*</button> 	
+		</form>
+		
+		<form method="post" action="/calculator/operation/divide">
+			<button>/</button>
+		</form>
+		
+		<form method="post" action="/calculator/operation/swap">
+			<button>SWAP</button>
+		</form>
+		{{/canShowBinaryOperator}}
+		
+		
+		{{#canShowUnaryOperator}}				
+		<form method="post" action="/calculator/operation/negate">
+			<button>+/-</button> 			
+		</form>
+		
+		<form method="post" action="/calculator/operation/reciprocal">
+			<button>X<sup>(-1)</sup></button>
+		</form>
+		
+		<form method="post" action="/calculator/operation/squareroot">
+			<button>X<sup>(1/2)</sup></button>		
+		</form>
+		
+		{{/canShowUnaryOperator}}
+		
+		<form method="post" action="/calculator/operation/clear">
+			<button>CLR</button>
+		</form>	
+		
+		<h2>Current Number Stack:</h2>
+		{{#stack}}
+			<div>{{ . }}</div>
+		{{/stack}}
+		
+	</body>
+
+</html>
+
+
+
